@@ -71,7 +71,7 @@
         </plugins>
     </build>
 
-    <repositories>
+    <!--<repositories>
         <repository>
             <id>aliyun-repos</id>
             <name>Aliyun Repository</name>
@@ -83,6 +83,6 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-    </repositories>
+    </repositories>-->
 
 </project>
