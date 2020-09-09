@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: nacos-provider
+  # 跟config配置相关的要写在bootstrap.yml里面(bootstrap会先加载，在结合configServer一起使用时，bootstrap属性文件更适合做一些引导context上下文的配置)
+  # 参考文献：https://blog.csdn.net/liupantao/article/details/103593089
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.93.132:8848
+      config:
+        server-addr: 192.168.93.132:8848
+        file-extension: yaml
+        enabled: true
+        #        prefix: nacos-provider
+        #        配置在Nacos对应的Data ID
+        shared-dataids: oracle-emp.yaml
+        #        shared-configs: nacos-provider-dev.yaml
+        refreshable-dataids: oracle-emp.yaml
+  #        refresh-enabled: true
+#  profiles:
+#    active: dev
