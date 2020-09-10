@@ -25,4 +25,4 @@ logging:
       example:
         provider:
           data:
-            mapper: info
+            mapper: debug
