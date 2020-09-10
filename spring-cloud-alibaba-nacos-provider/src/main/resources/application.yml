@@ -13,10 +13,3 @@ management:
     web:
       exposure:
         include: "*"
-logging:
-  level:
-    com:
-      example:
-        provider:
-          data:
-            mapper: info
