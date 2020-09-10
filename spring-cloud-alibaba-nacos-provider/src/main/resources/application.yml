@@ -15,4 +15,8 @@ management:
         include: "*"
 logging:
   level:
-    root: info
+    com:
+      example:
+        provider:
+          data:
+            mapper: info
