@@ -13,9 +13,11 @@ import lombok.Data;
  * @author: Lucien
  * @version: 1.0
  */
-@Table(name = "EMPLOYEE")
 @Data
+@Table(name = "EMPLOYEE")
 public class Employee implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     /**
      * ID主键
      * Column:    ID
@@ -97,24 +99,4 @@ public class Employee implements Serializable {
      */
     @Column(name = "EMP_AGE")
     private Long empAge;
-
-    private static final long serialVersionUID = 1L;
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", empName=").append(empName);
-        sb.append(", empSex=").append(empSex);
-        sb.append(", empRole=").append(empRole);
-        sb.append(", empSalary=").append(empSalary);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", updateTime=").append(updateTime);
-        sb.append(", empAge=").append(empAge);
-        sb.append("]");
-        return sb.toString();
-    }
 }

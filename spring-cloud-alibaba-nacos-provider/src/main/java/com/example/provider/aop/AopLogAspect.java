@@ -43,10 +43,10 @@ public class AopLogAspect {
         HttpServletRequest request = requestAttributes.getRequest();
         //打印请求内容
         log.info("==================[Before]请求内容start==================");
-        log.info("==================[Before]请求地址:{}", request.getRequestURL().toString());
-        log.info("==================[Before]请求方式:{}", request.getMethod());
-        log.info("==================[Before]请求类方法:{}", joinPoint.getSignature());
-        log.info("==================[Before]请求类方法参数:{}", Arrays.toString(joinPoint.getArgs()));
+        log.info("==================[Before]请求地址==================\n{}", request.getRequestURL().toString());
+        log.info("==================[Before]请求方式==================\n{}", request.getMethod());
+        log.info("==================[Before]请求类方法==================\n{}", joinPoint.getSignature());
+        log.info("==================[Before]请求类方法参数==================\n{}", Arrays.toString(joinPoint.getArgs()));
         log.info("==================[Before]请求内容end==================");
     }
 
@@ -68,13 +68,13 @@ public class AopLogAspect {
     @AfterThrowing(value = "pointCut()", throwing = "ex")
     public void afterThrowingMethod(JoinPoint joinPoint, Exception ex) {
         String methodName = joinPoint.getSignature().getName();
-        log.error("==================[AfterThrowingMethod]切点方法{}抛出异常:{}", methodName, ex.getMessage());
+        log.error("==================[AfterThrowingMethod]==================\n切点方法{}抛出异常:{}", methodName, ex.getMessage());
     }
 
 
     @AfterReturning(value = "pointCut()", returning = "o")
     public void afterReturn(Object o) {
-        log.info("==================[AfterReturn]Response内容:{}", JSON.toJSONString(o));
-        log.info("==================[AfterReturn]请求消耗总时间:{}ms", (System.currentTimeMillis() - startTime.get()));
+        log.info("==================[AfterReturn]==================\nResponse内容:{}", JSON.toJSONString(o));
+        log.info("==================[AfterReturn]==================\n请求消耗总时间:{}ms", (System.currentTimeMillis() - startTime.get()));
     }
 }
