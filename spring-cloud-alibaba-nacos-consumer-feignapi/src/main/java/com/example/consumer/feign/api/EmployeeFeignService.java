@@ -1,4 +1,4 @@
-package com.example.consumer.feign;
+package com.example.consumer.feign.api;
 
 import com.example.consumer.feign.fallback.EmployeeFallback;
 import com.example.consumer.feign.model.EmployeeDTO;

@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 @RestController
 @RefreshScope
-public class TestController {
+public class NacosConfigConstantController {
 
-    @Value("${hello}")
-    private String hello;
+    @Value("${nacos.constant}")
+    private String nacosConstant;
 
-    @GetMapping(value = "/hello")
-    public String hello() {
-        log.info("nacos配置中心共享配置信息:{}", hello);
-        return hello;
+    @GetMapping(value = "/getNacosConstant")
+    public String getNacosConstant() {
+        log.info("nacos配置中心共享配置信息:{}", nacosConstant);
+        return nacosConstant;
     }
 }
