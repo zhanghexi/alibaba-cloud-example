@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @ClassName EmployeeService
  * @User zhang
- * @Description
+ * @Description 对外暴露的Feign接口
  * @Author Lucien
  * @Date 2020/8/29 23:52
  * @Version 1.0

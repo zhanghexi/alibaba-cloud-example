@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * @ClassName EmployeeFallback
  * @User zhang
- * @Description
+ * @Description Feign接口调用失败的回调方法
  * @Author Lucien
  * @Date 2020/8/30 0:07
  * @Version 1.0
