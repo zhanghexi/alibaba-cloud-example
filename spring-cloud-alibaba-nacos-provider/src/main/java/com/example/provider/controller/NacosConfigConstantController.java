@@ -29,7 +29,8 @@ public class NacosConfigConstantController {
 
     @GetMapping(value = "/getNacosConstant")
     public String getNacosConstant() {
-        log.info("nacos配置中心共享配置信息:{}", nacosConfigConstantService.getNacosConstant(nacosConstant));
+        String nacosConstant = nacosConfigConstantService.getNacosConstant(this.nacosConstant);
+        log.info("nacos配置中心共享配置信息:{}", nacosConstant);
         return nacosConstant;
     }
 }
