@@ -1,5 +1,6 @@
 package com.example.provider.controller;
 
+import com.example.provider.aop.annotation.OperationLog;
 import com.example.provider.service.NacosConfigConstantService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +28,7 @@ public class NacosConfigConstantController {
     @Resource
     private NacosConfigConstantService nacosConfigConstantService;
 
+    @OperationLog(operEvent = "获取nacos配置的常量", operType = 1)
     @GetMapping(value = "/getNacosConstant")
     public String getNacosConstant() {
         String nacosConstant = nacosConfigConstantService.getNacosConstant(this.nacosConstant);

@@ -1,15 +1,21 @@
 package com.example.provider.aop;
 
 import com.alibaba.fastjson.JSON;
+import com.example.provider.aop.annotation.OperationLog;
+import com.example.provider.data.model.Operation;
+import com.example.provider.service.OperationLogService;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 /**
@@ -25,13 +31,14 @@ import java.util.Arrays;
 @Log4j2
 public class AopLogAspect {
 
-    private final String POINT_CUT = "execution(* com.example.provider.service.impl..*.*(..))";
+    @Resource
+    private OperationLogService operationLogService;
     private ThreadLocal<Long> startTime = new ThreadLocal<>();
 
     /**
      * 配置总的切面路径规则
      */
-    @Pointcut(POINT_CUT)
+    @Pointcut("@annotation(com.example.provider.aop.annotation.OperationLog)")
     public void pointCut() {
     }
 
@@ -41,6 +48,35 @@ public class AopLogAspect {
         /*获取request对象*/
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
+        //从切面织入点处通过反射机制获取织入点处的方法
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        Method method = signature.getMethod();
+
+        /*Operation入参*/
+        Operation operation = new Operation();
+        /*客户端ip*/
+        operation.setClientIp(request.getRemoteAddr());
+        /*用户名*/
+        operation.setUsername(System.getProperty("user.name"));
+
+        //获取操作--方法上的ViLog的值
+        OperationLog annotation = method.getAnnotation(OperationLog.class);
+        if (null != annotation) {
+            //保存日志类型
+            long operType = annotation.operType();
+            operation.setOperType(operType);
+            //保存操作事件
+            String operEvent = annotation.operEvent();
+            operation.setOperEvent(operEvent);
+        }
+        /*请求地址*/
+        operation.setOperUrl(request.getRequestURL().toString());
+        /*请求参数信息*/
+        operation.setReqParam(Arrays.toString(joinPoint.getArgs()));
+        /*请求方法类型*/
+        operation.setReqType(request.getMethod());
+        operationLogService.addOperationLog(operation);
+
         //打印请求内容
         log.info("==================[Before]请求内容start==================");
         log.info("==================[Before]请求地址==================\n{}", request.getRequestURL().toString());

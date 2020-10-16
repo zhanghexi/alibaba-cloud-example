@@ -2,6 +2,7 @@ package com.example.provider.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.example.consumer.feign.model.EmployeeDTO;
+import com.example.provider.aop.annotation.OperationLog;
 import com.example.provider.service.EmployeeService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ public class EmployeeController {
     @Resource
     private EmployeeService employeeService;
 
+    @OperationLog(operEvent = "根据员工名字模糊查询员工信息", operType = 1)
     @GetMapping(value = "/emp/queryEmpListByFeignApi/{empName}")
     public List<EmployeeDTO> queryEmpListByFeignApi(@PathVariable("empName") String empName) {
         List<EmployeeDTO> employeeDTOS = employeeService.queryEmpListByFeignApi(empName);
