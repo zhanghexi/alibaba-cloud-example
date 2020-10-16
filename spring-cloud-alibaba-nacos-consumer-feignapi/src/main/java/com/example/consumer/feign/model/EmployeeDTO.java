@@ -2,6 +2,7 @@ package com.example.consumer.feign.model;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
  * @Version 1.0
  */
 @Data
-public class EmployeeDTO {
+public class EmployeeDTO implements Serializable {
 
     private String name;
     private Long sex;
