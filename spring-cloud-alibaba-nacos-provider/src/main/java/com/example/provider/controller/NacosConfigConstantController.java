@@ -1,6 +1,6 @@
 package com.example.provider.controller;
 
-import com.example.provider.config.server.ServerConfig;
+import com.example.provider.service.NacosConfigConstantService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -25,12 +25,11 @@ public class NacosConfigConstantController {
     @Value("${nacos.constant}")
     private String nacosConstant;
     @Resource
-    private ServerConfig serverConfig;
+    private NacosConfigConstantService nacosConfigConstantService;
 
     @GetMapping(value = "/getNacosConstant")
     public String getNacosConstant() {
-        log.info("nacos配置中心共享配置信息:{}", nacosConstant);
-        log.info("完整请求地址:{}", serverConfig.getTotalUrl());
+        log.info("nacos配置中心共享配置信息:{}", nacosConfigConstantService.getNacosConstant(nacosConstant));
         return nacosConstant;
     }
 }
