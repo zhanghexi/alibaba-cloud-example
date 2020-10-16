@@ -27,7 +27,6 @@ public class ServerConfig implements ApplicationListener<WebServerInitializedEve
         try {
             address = InetAddress.getLocalHost();
             String totalUrl = "http://" + address.getHostAddress() + ":" + this.serverPort;
-            log.info("完整的请求地址:{}", totalUrl);
             return totalUrl;
         } catch (UnknownHostException e) {
             log.error("获取请求地址异常:{}", e.getMessage());
