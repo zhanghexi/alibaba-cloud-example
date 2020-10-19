@@ -44,6 +44,7 @@ public class AopLogAspect {
 
     @Before(value = "pointCut()")
     public void before(JoinPoint joinPoint) {
+        /*设置请求开始时间*/
         startTime.set(System.currentTimeMillis());
         /*获取request对象*/
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -58,7 +59,6 @@ public class AopLogAspect {
         operation.setClientIp(request.getRemoteAddr());
         /*用户名*/
         operation.setUsername(System.getProperty("user.name"));
-
         //获取操作--方法上的ViLog的值
         OperationLog annotation = method.getAnnotation(OperationLog.class);
         if (null != annotation) {
