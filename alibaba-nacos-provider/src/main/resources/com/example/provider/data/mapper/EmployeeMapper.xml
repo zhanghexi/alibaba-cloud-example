@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.provider.data.mapper.EmployeeMapper">
+    <resultMap id="BaseResultMap" type="com.example.provider.data.model.Employee">
+        <!-- ID主键 -->
+        <id column="ID" jdbcType="DECIMAL" property="id"/>
+        <!-- 员工姓名 -->
+        <result column="EMP_NAME" jdbcType="VARCHAR" property="empName"/>
+        <!-- 性别（1男，2女） -->
+        <result column="EMP_SEX" jdbcType="DECIMAL" property="empSex"/>
+        <!-- 员工类别（1普通员工、2组长、3经理、4总监） -->
+        <result column="EMP_ROLE" jdbcType="DECIMAL" property="empRole"/>
+        <!-- 薪资（保留两位小数） -->
+        <result column="EMP_SALARY" jdbcType="DECIMAL" property="empSalary"/>
+        <!-- 创建时间（默认为sysdate，添加的时候不用手动操作） -->
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <!-- 修改时间（已添加触发器，在update的时候不用手动更新） -->
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <!-- 员工年龄 -->
+        <result column="EMP_AGE" jdbcType="DECIMAL" property="empAge"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, EMP_NAME, EMP_SEX, EMP_ROLE, EMP_SALARY, CREATE_TIME, UPDATE_TIME, EMP_AGE
+    </sql>
+    <!-- ### 以上代码由自定义的注释插件CommentGenerator自动生成, 生成时间: 2020-08-29 23:51:01 ### -->
+    <!-- Your codes goes here!!! -->
+    <!--定义自己的resultMap时，column为自己返回的property属性值的大写形式-->
+    <resultMap id="ParamMap" type="com.example.consumer.feign.model.EmployeeDTO">
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="SEX" jdbcType="DECIMAL" property="sex"/>
+        <result column="ROLE" jdbcType="DECIMAL" property="role"/>
+        <result column="AGE" jdbcType="DECIMAL" property="age"/>
+        <result column="TOTALSALARY" jdbcType="DECIMAL" property="totalSalary"/>
+    </resultMap>
+
+    <select id="queryEmpListByFeignApi" parameterType="java.lang.String" resultMap="ParamMap">
+        SELECT
+            e.EMP_NAME AS name,
+            e.EMP_SEX AS sex,
+            e.EMP_ROLE AS role,
+            e.EMP_AGE AS age,
+            SUM( e.EMP_SALARY ) AS totalSalary
+        FROM
+            EMPLOYEE e
+        WHERE
+            e.EMP_NAME LIKE '%' || #{empName} || '%'
+        GROUP BY
+            e.EMP_NAME,
+            e.EMP_SEX,
+            e.EMP_ROLE,
+            e.EMP_AGE,
+            e.EMP_SALARY
+        ORDER BY
+            e.EMP_SALARY DESC
+    </select>
+</mapper>

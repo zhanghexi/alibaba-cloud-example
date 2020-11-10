@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: nacos-provider
+  profiles:
+    active: dev
+  # bootstrap.yml指定了spring.application.name和profiles.active，启动时会自动找到nacos中心相对应名字的配置文件
+  # 跟config配置相关的要写在bootstrap.yml里面(bootstrap会先加载)
+  # 参考文献：https://blog.csdn.net/liupantao/article/details/103593089
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.93.132:8848
+      config:
+        server-addr: 192.168.93.132:8848
+        file-extension: yaml
+        #在此指定共享配置
+        shared-configs[0]:
+          data-Id: oracle-emp.yaml
+          refresh: true
