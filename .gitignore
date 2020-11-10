@@ -1,0 +1,16 @@
+# Created by .ignore support plugin (hsz.mobi)
+.gitignore
+.idea/.gitignore
+.idea/alibaba-cloud-example.iml
+.idea/codeStyles/
+.idea/compiler.xml
+.idea/dataSources.xml
+.idea/encodings.xml
+.idea/inspectionProfiles/
+.idea/libraries/
+.idea/misc.xml
+.idea/modules.xml
+.idea/sonarlint/
+.idea/vcs.xml
+logs/
+spring-cloud-alibaba-nacos-provider/src/test/
