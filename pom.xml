@@ -15,8 +15,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-cloud-alibaba-nacos-provider</module>
-        <module>spring-cloud-alibaba-nacos-consumer-feignapi</module>
+        <module>alibaba-nacos-provider</module>
+        <module>alibaba-nacos-consumer-api</module>
     </modules>
 
     <properties>
