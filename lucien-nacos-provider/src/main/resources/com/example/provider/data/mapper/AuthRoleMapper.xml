@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.provider.data.mapper.AuthRoleMapper">
+    <resultMap id="BaseResultMap" type="com.example.provider.data.model.AuthRole">
+        <!-- ID主键 -->
+        <id column="ID" jdbcType="DECIMAL" property="id"/>
+        <!-- 角色名称 -->
+        <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID, ROLE_NAME
+    </sql>
+    <!-- ### 以上代码由自定义的注释插件CommentGenerator自动生成, 生成时间: 2020-12-01 17:30:12 ### -->
+    <!-- Your codes goes here!!! -->
+    <select id="findRoleByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT AR.ROLE_NAME
+        FROM AUTH_ROLE AR
+        LEFT JOIN AUTH_USER_ROLE_RELATION RR ON AR.ID = RR.ROLE_ID
+        LEFT JOIN AUTH_USER AU ON AU.ID = RR.USER_ID
+        <where>
+            <if test="id!=null">
+                AND AU.ID = #{id}
+            </if>
+        </where>
+    </select>
+</mapper>

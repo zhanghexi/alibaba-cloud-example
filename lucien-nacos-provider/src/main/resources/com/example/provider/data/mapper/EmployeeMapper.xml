@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.provider.data.mapper.EmployeeMapper">
+    <resultMap id="BaseResultMap" type="com.example.provider.data.model.Employee">
+        <!-- ID主键 -->
+        <id column="ID" jdbcType="DECIMAL" property="id"/>
+        <!-- 员工姓名 -->
+        <result column="EMP_NAME" jdbcType="VARCHAR" property="empName"/>
+        <!-- 员工性别（1男，2女） -->
+        <result column="EMP_SEX" jdbcType="DECIMAL" property="empSex"/>
+        <!-- 薪资（保留两位小数） -->
+        <result column="EMP_SALARY" jdbcType="DECIMAL" property="empSalary"/>
+        <!-- 创建时间（默认为sysdate，添加的时候不用手动操作） -->
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <!-- 修改时间（已添加触发器，在update的时候不用手动更新） -->
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <!-- 员工年龄 -->
+        <result column="EMP_AGE" jdbcType="DECIMAL" property="empAge"/>
+        <!-- 员工编号 -->
+        <result column="EMP_CODE" jdbcType="VARCHAR" property="empCode"/>
+        <!-- 员工住址 -->
+        <result column="EMP_ADDRESS" jdbcType="VARCHAR" property="empAddress"/>
+        <!-- 员工邮箱 -->
+        <result column="EMP_EMAIL" jdbcType="VARCHAR" property="empEmail"/>
+        <!-- 角色编号 -->
+        <result column="ROLE_CODE" jdbcType="VARCHAR" property="roleCode"/>
+        <!-- 部门编号 -->
+        <result column="DEP_CODE" jdbcType="VARCHAR" property="depCode"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, EMP_NAME, EMP_SEX, EMP_SALARY, CREATE_TIME, UPDATE_TIME, EMP_AGE, EMP_CODE, EMP_ADDRESS,
+        EMP_EMAIL, ROLE_CODE, DEP_CODE
+    </sql>
+    <!-- ### 以上代码由自定义的注释插件CommentGenerator自动生成, 生成时间: 2020-11-30 15:41:54 ### -->
+    <!-- Your codes goes here!!! -->
+    <resultMap id="EmpMap" type="com.example.consumer.feign.model.EmployeeDTO">
+        <result column="empName" jdbcType="VARCHAR" property="empName"/>
+        <result column="empSex" jdbcType="VARCHAR" property="empSex"/>
+        <result column="empAge" jdbcType="DECIMAL" property="empAge"/>
+        <result column="empEmail" jdbcType="VARCHAR" property="empEmail"/>
+        <result column="empAddress" jdbcType="VARCHAR" property="empAddress"/>
+        <result column="empSalary" jdbcType="DECIMAL" property="empSalary"/>
+        <result column="deptName" jdbcType="VARCHAR" property="deptName"/>
+        <result column="roleName" jdbcType="VARCHAR" property="roleName"/>
+    </resultMap>
+
+    <select id="queryEmployeesByConditions" parameterType="java.lang.String" resultMap="EmpMap">
+        SELECT
+        e.EMP_NAME AS empName,
+        CASE e.EMP_SEX WHEN 1 THEN '男' WHEN 2 THEN '女' END AS empSex,
+        e.EMP_AGE AS empAge,
+        e.EMP_EMAIL AS empEmail,
+        e.EMP_ADDRESS AS empAddress,
+        e.EMP_SALARY AS empSalary,
+        d.DEP_NAME AS depName,
+        r.ROLE_NAME AS roleName
+        FROM EMPLOYEE e
+        JOIN DEPARTMENT d ON d.DEP_CODE = e.DEP_CODE
+        JOIN ROLE r ON r.ROLE_CODE = e.ROLE_CODE
+        <where>
+            <if test="empName!=null and empName!=''">
+                AND INSTR(e.EMP_NAME, #{empName}) > 0
+            </if>
+        </where>
+        ORDER BY e.EMP_SALARY DESC
+    </select>
+</mapper>

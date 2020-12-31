@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.example.consumer.feign.fallback.EmployeeFallback,\
-  com.example.consumer.feign.fallback.NacosConfigConstantFallback

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.provider.data.mapper.AuthUserMapper">
+    <resultMap id="BaseResultMap" type="com.example.provider.data.model.AuthUser">
+        <!-- ID主键 -->
+        <id column="ID" jdbcType="DECIMAL" property="id"/>
+        <!-- 用户账号 -->
+        <result column="USERNAME" jdbcType="VARCHAR" property="username"/>
+        <!-- 密码 -->
+        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
+        <!--头像地址-->
+        <result column="AVATAR" jdbcType="VARCHAR" property="avatar"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID, USERNAME, PASSWORD, AVATAR
+    </sql>
+    <!-- ### 以上代码由自定义的注释插件CommentGenerator自动生成, 生成时间: 2020-12-01 17:27:46 ### -->
+    <!-- Your codes goes here!!! -->
+    <select id="queryUserInfo" parameterType="com.example.consumer.feign.model.LoginParamDTO"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM AUTH_USER
+        <where>
+            <if test="param.username!=null and param.username!=''">
+                AND USERNAME = #{param.username}
+            </if>
+            <if test="param.password!=null and param.password!=''">
+                AND PASSWORD = #{param.password}
+            </if>
+        </where>
+    </select>
+
+    <select id="findUserByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM AUTH_USER
+        <where>
+            <if test="username!=null and username!=''">
+                AND USERNAME = #{username}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateUserAvatar" parameterType="com.example.provider.data.model.AuthUser">
+        UPDATE AUTH_USER SET AVATAR = #{avatar} WHERE USERNAME = #{username}
+    </update>
+</mapper>

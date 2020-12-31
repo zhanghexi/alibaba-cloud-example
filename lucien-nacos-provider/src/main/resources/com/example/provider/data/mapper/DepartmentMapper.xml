@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.provider.data.mapper.DepartmentMapper">
+    <resultMap id="BaseResultMap" type="com.example.provider.data.model.Department">
+
+        <!-- ID主键 -->
+        <id column="ID" jdbcType="DECIMAL" property="id"/>
+
+        <!-- 部门名称 -->
+        <result column="DEP_NAME" jdbcType="VARCHAR" property="depName"/>
+
+        <!-- 部门编号 -->
+        <result column="DEP_CODE" jdbcType="VARCHAR" property="depCode"/>
+
+        <!-- 备注 -->
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        ID, DEP_NAME, DEP_CODE, REMARK
+    </sql>
+    <!-- ### 以上代码由自定义的注释插件CommentGenerator自动生成, 生成时间: 2020-11-30 15:39:23 ### -->
+
+    <!-- Your codes goes here!!! -->
+</mapper>
