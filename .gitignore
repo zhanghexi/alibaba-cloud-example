@@ -1,7 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 .gitignore
 .idea/.gitignore
-.idea/alibaba-cloud-example.iml
+.idea/lucien-springcloud-example.iml
 .idea/codeStyles/
 .idea/compiler.xml
 .idea/dataSources.xml
