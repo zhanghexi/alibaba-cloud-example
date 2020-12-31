@@ -7,16 +7,15 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.4.RELEASE</version>
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>spring-cloud-alibaba</artifactId>
+
+    <groupId>com.lucien</groupId>
+    <artifactId>lucien-cloud-parent</artifactId>
     <version>1.0.0</version>
-    <name>spring-cloud-alibaba</name>
-    <description>Demo project for Spring Boot</description>
     <packaging>pom</packaging>
 
     <modules>
-        <module>alibaba-nacos-provider</module>
-        <module>alibaba-nacos-consumer-api</module>
+        <module>lucien-nacos-provider</module>
+        <module>lucien-nacos-consumer-feign-api</module>
     </modules>
 
     <properties>
